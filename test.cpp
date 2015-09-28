@@ -8,8 +8,8 @@
 #include <time.h>
 #include <stdlib.h>
 
-#include "StackArray.h"
-#include "QueueArray.h"
+#include "DA/StackArray.h"
+#include "DA/QueueArray.h"
 
 void testStack()
 {
