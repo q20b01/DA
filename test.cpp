@@ -7,9 +7,10 @@
 
 #include <time.h>
 #include <stdlib.h>
-
+#include <algorithm>
 #include "DA/StackArray.h"
 #include "DA/QueueArray.h"
+#include "Sort/Sort.h"
 
 void testStack()
 {
@@ -100,14 +101,88 @@ void testRandomQueue()
 	}
 }
 
+void sortTest()
+{
+	int size = 20;
+	int* tab = (int*)malloc(size * sizeof(int));
+
+	for(unsigned int i = 0; i < size; ++i)	tab[i] = rand() % 100;
+
+	for(unsigned int i = 0; i < size; ++i)	printf("%d ", tab[i]);
+
+	printf("\n");
+
+	mergeSort(tab, 0, size);
+
+	printf("result \n");
+	for(unsigned int i = 0; i < size; ++i)
+	{
+		printf("%d ", tab[i]);
+	}
+
+	printf("\n");
+
+	free(tab);
+}
+
+int comp(const void* a, const void* b)
+{
+	if(*(int*)a > *(int*)b)	return 1;
+	if(*(int*)a == *(int*)b)	return 0;
+	return -1;
+}
+
+void partition()
+{
+	int size = 1000;
+	int num = 3;
+	int* tab1 = (int*) malloc(size * sizeof(int));
+	int* tab2 = (int*) malloc(size * sizeof(int));
+	int* tab3 = (int*) malloc(size * sizeof(int));
+	for(unsigned int i = 0; i < size; ++i){
+		int r = rand() % 100;
+		tab1[i] = r;
+		tab2[i] = r;
+		tab3[i] = r;
+	}
+
+//	for(unsigned int i = 0; i < size; ++i)	printf("%d ", tab[i]);
+//	printf("\n");
+
+//	partition(tab, size, num);
+	quickSort(tab1, size);
+	mergeSort(tab3, 0, size);
+
+	qsort(tab2, size, sizeof(int), comp);
+
+	for(unsigned int i = 0; i < size; ++i)
+	{
+		if(tab1[i] != tab2[i] || tab2[i] != tab3[i]){
+			printf("ERRRRROR\n");
+			break;
+		}
+	}
+
+//	for(unsigned int i = 0; i < size; ++i)	printf("%d ", tab[i]);
+//	printf("\n");
+	printf("koniec\n");
+	free(tab1);
+	free(tab2);
+	free(tab3);
+}
+
 int main()
 {
 	srand(time(NULL));
-	testStack();
-	testQueue();
+//	testStack();
+//	testQueue();
 
-	testRandomStack();
-	testRandomQueue();
+//	testRandomStack();
+//	testRandomQueue();
+
+//	sortTest();
+
+	partition();
 
 	return 0;
 }
