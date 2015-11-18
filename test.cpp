@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "DA/StackArray.h"
 #include "DA/QueueArray.h"
+#include "DA/BinaryHeap.h"
 #include "Sort/Sort.h"
 
 void testStack()
@@ -171,6 +172,37 @@ void partition()
 	free(tab3);
 }
 
+void testBinaryHeap()
+{
+	BinaryHeap<int>	bh;
+
+	for(unsigned int i = 0; i < 50; ++i)
+	{
+		int r = rand() % 100;
+		printf("insert: %d \n", r);
+		bh.insert(r);
+
+#ifdef _QDEBUG
+		bh.debugPrint();
+#endif
+	}
+
+	int p = 100;
+	while(!bh.isEmpty())
+	{
+		int r;
+		bh.delMax(r);
+		if(p < r)
+		{
+			printf("ERRRRRRRRRRRRRRRORRR");
+			exit(1);
+		}
+
+		printf("max: %d \n", r);
+		p = r;
+	}
+}
+
 int main()
 {
 	srand(time(NULL));
@@ -182,7 +214,9 @@ int main()
 
 //	sortTest();
 
-	partition();
+//	partition();
+
+	testBinaryHeap();
 
 	return 0;
 }
